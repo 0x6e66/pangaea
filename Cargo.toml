@@ -1,0 +1,25 @@
+[package]
+name = "pangaea-rs"
+version = "0.1.0"
+edition = "2021"
+authors = ["Niklas Frondorf <niklas.frondorf@dlr.de>"]
+readme = "README.md"
+description = "A rust module to to access data from pangaea.de"
+repository = "https://gitlab.dlr.de/sc/ivs-open/pangaea-rs/"
+homepage = "https://gitlab.dlr.de/sc/ivs-open/pangaea-rs/"
+
+
+[dependencies]
+elasticsearch = { git = "https://github.com/0x6e66/elasticsearch-rs.git", branch = "version-5.6-compatibility" }
+futures-util = "0.3.30"
+reqwest = { version = "0.11.23", features = ["stream"] }
+serde = "1.0.195"
+serde_derive = "1.0.195"
+serde_json = "1.0.111"
+thiserror = "1.0.56"
+yaserde = "0.9.1"
+yaserde_derive = "0.9.1"
+
+
+[dev-dependencies]
+tokio = { version = "1.35.1", features = ["full"] }
