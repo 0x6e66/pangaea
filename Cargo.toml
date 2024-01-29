@@ -4,13 +4,14 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Niklas Frondorf <niklas.frondorf@dlr.de>"]
 readme = "README.md"
+license-file = "LICENCE"
 description = "A rust module to to access data from pangaea.de"
 repository = "https://gitlab.dlr.de/sc/ivs-open/pangaea-rs/"
 homepage = "https://gitlab.dlr.de/sc/ivs-open/pangaea-rs/"
 
 
 [dependencies]
-elasticsearch = { git = "https://github.com/0x6e66/elasticsearch-rs.git", branch = "version-5.6-compatibility" }
+elasticsearch = "8.6.0-alpha.1"
 futures-util = "0.3.30"
 reqwest = { version = "0.11.23", features = ["stream"] }
 serde = "1.0.195"
@@ -23,3 +24,6 @@ yaserde_derive = "0.9.1"
 
 [dev-dependencies]
 tokio = { version = "1.35.1", features = ["full"] }
+
+[patch.crates-io]
+elasticsearch = { git = "https://github.com/0x6e66/elasticsearch-rs.git", branch = "version-5.6-compatibility"}
