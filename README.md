@@ -6,7 +6,7 @@ Run `cargo add pangaea` or add `pangaea = "0.1.0"` to your dependencies
 ## Get metadata for a specific PANGAEA dataset
 ```rust
 use std::{fs::File, io::Write};
-use pangaea_rs::elastic::elastic_doc;
+use pangaea::elastic::elastic_doc;
 
 #[tokio::main]
 pub async fn main() {
@@ -22,7 +22,7 @@ pub async fn main() {
 ## Search for multiple datasets
 ```rust
 use std::{fs::File, io::Write};
-use pangaea_rs::elastic::elastic_search;
+use pangaea::elastic::elastic_search;
 
 #[tokio::main]
 pub async fn main() {
@@ -43,7 +43,7 @@ pub async fn main() {
 
 ## Download the actual data associated with the dataset
 ```rust
-use pangaea_rs::download_data::download_data_by_id;
+use pangaea::download_data::download_data_by_id;
 
 #[tokio::main]
 async fn main() {

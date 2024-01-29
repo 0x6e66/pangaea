@@ -10,6 +10,7 @@ repository = "https://github.com/0x6e66/pangaea"
 homepage = "https://github.com/0x6e66/pangaea"
 include = ["src", "Cargo.toml", "README.md", "LICENSE"]
 keywords = ["data_publisher", "pangaea", "geo_data"]
+documentation = "https://docs.rs/pangaea/"
 
 
 [dependencies]
