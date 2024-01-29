@@ -1,13 +1,13 @@
 [package]
 name = "pangaea"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
-authors = ["Niklas Frondorf <niklas.frondorf@dlr.de>"]
+authors = ["Niklas Frondorf <niklas.frondorf@web.de>"]
 readme = "README.md"
 license-file = "LICENSE"
 description = "A rust module to to access data from pangaea.de"
-repository = "https://gitlab.dlr.de/sc/ivs-open/pangaea-rs/"
-homepage = "https://gitlab.dlr.de/sc/ivs-open/pangaea-rs/"
+repository = "https://github.com/0x6e66/pangaea"
+homepage = "https://github.com/0x6e66/pangaea"
 include = ["src", "Cargo.toml", "README.md", "LICENSE"]
 
 
