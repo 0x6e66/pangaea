@@ -1,4 +1,4 @@
-//! Generated with [xgen](https://github.com/xuri/xgen) from the [PANGAEA metadata scheme](https://ws.pangaea.de/schemas/pangaea/MetaData.xsd) and modified afterwards 
+//! Generated with [xgen](https://github.com/xuri/xgen) from the [PANGAEA metadata scheme](https://ws.pangaea.de/schemas/pangaea/MetaData.xsd) and modified afterwards
 
 use serde_derive::{Deserialize, Serialize};
 use yaserde_derive::{YaDeserialize, YaSerialize};

@@ -1,5 +1,5 @@
 [package]
-name = "pangaea-rs"
+name = "pangaea"
 version = "0.1.0"
 edition = "2021"
 authors = ["Niklas Frondorf <niklas.frondorf@dlr.de>"]
@@ -8,6 +8,7 @@ license-file = "LICENSE"
 description = "A rust module to to access data from pangaea.de"
 repository = "https://gitlab.dlr.de/sc/ivs-open/pangaea-rs/"
 homepage = "https://gitlab.dlr.de/sc/ivs-open/pangaea-rs/"
+include = ["src", "Cargo.toml", "README.md", "LICENSE"]
 
 
 [dependencies]
@@ -27,4 +28,4 @@ tokio = { version = "1.35.1", features = ["full"] }
 
 
 [patch.crates-io]
-elasticsearch = { git = "https://github.com/0x6e66/elasticsearch-rs.git", branch = "version-5.6-compatibility"}
+elasticsearch = { git = "https://github.com/0x6e66/elasticsearch-rs.git", branch = "version-5.6-compatibility", version = "8.6.0-alpha.1"}

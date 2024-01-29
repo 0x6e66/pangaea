@@ -1,6 +1,6 @@
 use std::{fs::File, io::Write};
 
-use pangaea_rs::elastic::elastic_doc;
+use pangaea::elastic::elastic_doc;
 
 #[tokio::main]
 pub async fn main() {

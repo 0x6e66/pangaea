@@ -1,4 +1,4 @@
-use pangaea_rs::download_data::download_data_by_id;
+use pangaea::download_data::download_data_by_id;
 
 #[tokio::main]
 async fn main() {

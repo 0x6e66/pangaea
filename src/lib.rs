@@ -7,7 +7,7 @@
 //! ## Get metadata for a specific PANGAEA dataset
 //! ```
 //! use std::{fs::File, io::Write};
-//! use pangaea_rs::elastic::elastic_doc;
+//! use pangaea::elastic::elastic_doc;
 //!
 //! #[tokio::main]
 //! pub async fn main() {
@@ -23,7 +23,7 @@
 //! ## Search for multiple datasets
 //! ```
 //! use std::{fs::File, io::Write};
-//! use pangaea_rs::elastic::elastic_search;
+//! use pangaea::elastic::elastic_search;
 //!
 //! #[tokio::main]
 //! pub async fn main() {
@@ -45,7 +45,7 @@
 //!
 //! ## Download the actual data associated with the dataset
 //! ```
-//! use pangaea_rs::download_data::download_data_by_id;
+//! use pangaea::download_data::download_data_by_id;
 //!
 //! #[tokio::main]
 //! async fn main() {
