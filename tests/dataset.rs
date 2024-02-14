@@ -14,7 +14,7 @@ async fn dataset_new() {
 }
 
 #[tokio::test]
-async fn metadata_search() {
+async fn dataset_search() {
     let _ = Dataset::search(0, 10, None, &["sp-lastModified:desc"], &get_client())
         .await
         .unwrap();
