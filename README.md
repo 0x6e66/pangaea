@@ -1,20 +1,22 @@
 # A rust module to to access [PANGAEA](https://www.pangaea.de/) (meta)data
 
-## Getting started
-Run `cargo add pangaea` or add `pangaea = "0.1.0"` to your dependencies
-
 ## Get metadata for a specific PANGAEA dataset
 ```rust
 use std::{fs::File, io::Write};
-use pangaea::elastic::elastic_doc;
+
+use pangaea::dataset::datasettype::Dataset;
+use elasticsearch::{Elasticsearch, http::transport::Transport};
 
 #[tokio::main]
 pub async fn main() {
     let dataset_id = 820322;
-    let metadata = elastic_doc(dataset_id).await.unwrap();
+    let transport = Transport::single_node("https://ws.pangaea.de/es/pangaea").unwrap();
+    let client = Elasticsearch::new(transport);
+
+    let dateset = Dataset::new(dataset_id, &client).await.unwrap();
 
     let mut file = File::create(format!("pangaea-dataset-{}.json", dataset_id)).unwrap();
-    let json = serde_json::to_string(&metadata).unwrap();
+    let json = serde_json::to_string(&dateset).unwrap();
     write!(file, "{}", json).unwrap();
 }
 ```
@@ -22,11 +24,16 @@ pub async fn main() {
 ## Search for multiple datasets
 ```rust
 use std::{fs::File, io::Write};
-use pangaea::elastic::elastic_search;
+
+use pangaea::dataset::datasettype::Dataset;
+use elasticsearch::{Elasticsearch, http::transport::Transport};
 
 #[tokio::main]
 pub async fn main() {
-    let res = elastic_search(0, 10, None, &["sp-lastModified:desc"])
+    let transport = Transport::single_node("https://ws.pangaea.de/es/pangaea").unwrap();
+    let client = Elasticsearch::new(transport);
+
+    let res = Dataset::search(0, 10, None, &["sp-lastModified:desc"], &client)
         .await
         .unwrap();
 

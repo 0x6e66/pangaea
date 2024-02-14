@@ -1,19 +1,20 @@
 [package]
 name = "pangaea"
-version = "0.1.2"
+version = "0.2.0"
 edition = "2021"
 authors = ["Niklas Frondorf <niklas.frondorf@web.de>"]
 readme = "README.md"
-license-file = "LICENSE"
+license = "MIT OR Apache-2.0"
 description = "A rust module to to access data from pangaea.de"
 repository = "https://github.com/0x6e66/pangaea"
 homepage = "https://github.com/0x6e66/pangaea"
-include = ["src", "Cargo.toml", "README.md", "LICENSE"]
-keywords = ["data_publisher", "pangaea", "geo_data"]
+include = ["src", "Cargo.toml", "README.md"]
+keywords = ["data-publisher", "pangaea", "geographic"]
 documentation = "https://docs.rs/pangaea/"
 
 
 [dependencies]
+chrono = { version = "0.4.33", features = ["serde"] }
 elasticsearch = "8.5.0-alpha.1"
 futures-util = "0.3.30"
 reqwest = { version = "0.11.23", features = ["stream"] }

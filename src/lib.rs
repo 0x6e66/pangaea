@@ -1,7 +1,7 @@
 #![doc = include_str!("../README.md")]
 
+pub mod dataset;
 pub mod download_data;
-pub mod elastic;
 mod error;
+pub mod metadata;
 mod prelude;
-pub mod types;

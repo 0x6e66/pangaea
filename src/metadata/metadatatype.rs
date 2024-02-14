@@ -1,6 +1,7 @@
 //! Generated with [xgen](https://github.com/xuri/xgen) from the [PANGAEA metadata scheme](https://ws.pangaea.de/schemas/pangaea/MetaData.xsd) and modified afterwards
 
 use serde_derive::{Deserialize, Serialize};
+use serde_json::Value;
 use yaserde_derive::{YaDeserialize, YaSerialize};
 
 #[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
@@ -20,7 +21,7 @@ pub struct MetaDataType {
     #[yaserde(rename = "citation", prefix = "md")]
     pub citation: DataSetCitationType,
     #[yaserde(rename = "abstract", prefix = "md")]
-    pub r#abstract: Option<String>,
+    pub text_abstract: Option<String>,
     #[yaserde(rename = "reference", prefix = "md")]
     pub references: Vec<ReferenceType>,
     #[yaserde(rename = "extent", prefix = "md")]
@@ -245,7 +246,7 @@ pub struct LinkedLabelNameType {
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct ProjectType {
     #[yaserde(rename = "type", prefix = "md", attribute)]
-    pub r#type: Option<String>,
+    pub project_type: Option<String>,
     #[yaserde(rename = "institution", prefix = "md")]
     pub institution: Option<InstitutionType>,
     #[yaserde(flatten)]
@@ -379,7 +380,7 @@ pub struct KeywordType {
     #[yaserde(flatten)]
     pub id_attributes: IdAttributes,
     #[yaserde(rename = "type", prefix = "md", attribute)]
-    pub r#type: KeywordTypeType,
+    pub keyword_type: KeywordTypeType,
     #[yaserde(text)]
     pub text: String,
 }
@@ -418,7 +419,7 @@ pub struct ColumnType {
     #[yaserde(rename = "col", attribute)]
     pub col: i32,
     #[yaserde(rename = "type", attribute)]
-    pub r#type: ColumnTypeType,
+    pub columntypetype: ColumnTypeType,
     #[yaserde(rename = "source", attribute)]
     pub source: ColumnSourceType,
     #[yaserde(rename = "format", attribute)]
@@ -565,4 +566,46 @@ pub struct AttributeType {
     pub name: String,
     #[yaserde(text)]
     pub text: String,
+}
+
+#[derive(Deserialize, Serialize, Debug, Clone)]
+pub(crate) struct ElasticSearchResponse {
+    pub took: u32,
+    pub timed_out: bool,
+    pub _shards: Shards,
+    pub hits: Hits,
+}
+
+#[derive(Deserialize, Serialize, Debug, Clone)]
+pub(crate) struct Shards {
+    pub total: u32,
+    pub successful: u32,
+    pub skipped: u32,
+    pub failed: u32,
+}
+
+#[derive(Deserialize, Serialize, Debug, Clone)]
+pub(crate) struct Hits {
+    pub total: u32,
+    pub max_score: Option<f32>,
+    pub hits: Vec<SearchHit>,
+}
+
+#[derive(Deserialize, Serialize, Debug, Clone)]
+pub(crate) struct SearchHit {
+    pub _index: String,
+    pub _type: String,
+    pub _id: String,
+    pub _score: Option<f32>,
+    pub _source: Value,
+}
+
+#[derive(Deserialize, Serialize, Debug, Clone)]
+pub(crate) struct IndexHit {
+    pub _index: String,
+    pub _type: String,
+    pub _id: String,
+    pub _version: i32,
+    pub found: bool,
+    pub _source: Value,
 }

@@ -4,14 +4,14 @@ pub enum Error {
     Generic(String),
 
     #[error("ElasticsearchError {0}")]
-    ElasticsearchError(#[from] elasticsearch::Error),
+    Elasticsearch(#[from] elasticsearch::Error),
 
     #[error("SerdeJsonError {0}")]
-    SerdeJsonError(#[from] serde_json::Error),
+    SerdeJson(#[from] serde_json::Error),
 
     #[error("ReqwestError {0}")]
-    ReqwestError(#[from] reqwest::Error),
+    Reqwest(#[from] reqwest::Error),
 
     #[error("IOError {0}")]
-    IOError(#[from] std::io::Error),
+    IO(#[from] std::io::Error),
 }
