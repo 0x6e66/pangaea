@@ -5,3 +5,4 @@ pub mod download_data;
 mod error;
 pub mod metadata;
 mod prelude;
+pub mod utils;
