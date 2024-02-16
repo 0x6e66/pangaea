@@ -1,62 +1,14 @@
 # A rust module to to access [PANGAEA](https://www.pangaea.de/) (meta)data
+[![Build](https://github.com/0x6e66/pangaea/actions/workflows/rust.yml/badge.svg)](https://github.com/0x6e66/pangaea/actions/workflows/rust.yml)
+[![Crate](https://img.shields.io/crates/v/pangaea.svg)](https://crates.io/crates/pangaea)
+[![Documentation](https://img.shields.io/docsrs/pangaea?label=docs.rs)](https://docs.rs/pangaea)
+![License](https://img.shields.io/crates/l/pangaea)
 
-## Get metadata for a specific PANGAEA dataset
-```rust
-use std::{fs::File, io::Write};
+## Description
+This crate aims to provide interoperability between rust and the data publisher [PANGAEA](https://www.pangaea.de/). This crate provides mainly two type to get metadata from [PANGAEA](https://www.pangaea.de/)-datasets:
+1. [Metadata](./src/metadata/metadatatype.rs) => A type that contains every information that is provided by [PANGAEA](https://www.pangaea.de/) and matches their [MetaData.xsd](https://ws.pangaea.de/schemas/pangaea/MetaData.xsd)-schema
+2. [Dataset](./src/dataset/datasettype.rs) => A striped down version of [Metadata](./src/metadata/metadatatype.rs). This type only contains a selected amount of information of [Metadata](./src/metadata/metadatatype.rs).
 
-use pangaea::dataset::datasettype::Dataset;
-use elasticsearch::{Elasticsearch, http::transport::Transport};
+This crate also provides the opportunity to download the actual data associated with a dataset.
 
-#[tokio::main]
-pub async fn main() {
-    let dataset_id = 820322;
-    let transport = Transport::single_node("https://ws.pangaea.de/es/pangaea").unwrap();
-    let client = Elasticsearch::new(transport);
-
-    let dateset = Dataset::new(dataset_id, &client).await.unwrap();
-
-    let mut file = File::create(format!("pangaea-dataset-{}.json", dataset_id)).unwrap();
-    let json = serde_json::to_string(&dateset).unwrap();
-    write!(file, "{}", json).unwrap();
-}
-```
-
-## Search for multiple datasets
-```rust
-use std::{fs::File, io::Write};
-
-use pangaea::dataset::datasettype::Dataset;
-use elasticsearch::{Elasticsearch, http::transport::Transport};
-
-#[tokio::main]
-pub async fn main() {
-    let transport = Transport::single_node("https://ws.pangaea.de/es/pangaea").unwrap();
-    let client = Elasticsearch::new(transport);
-
-    let res = Dataset::search(0, 10, None, &["sp-lastModified:desc"], &client)
-        .await
-        .unwrap();
-
-    let mut file = File::create(format!("pangaea-datasets.jsonl")).unwrap();
-
-    res.into_iter()
-        .filter_map(|md_res| md_res.ok())
-        .for_each(|md| {
-            let json = serde_json::to_string(&md).unwrap();
-            writeln!(file, "{}", json).unwrap();
-        });
-}
-```
-
-## Download the actual data associated with the dataset
-```rust
-use pangaea::download_data::download_data_by_id;
-
-#[tokio::main]
-async fn main() {
-    let id = 921673;
-    download_data_by_id(id, "downloaded_file").await.unwrap();
-}
-
-```
-The data will saved to `filename.zip` or `filename.txt`, depending on the datatype that is returned
+Examples can be found in [examples](./examples/)
