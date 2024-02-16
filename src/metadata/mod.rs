@@ -3,8 +3,10 @@ use serde_json::{json, Value};
 
 use crate::prelude::*;
 
-use self::metadatatype::{ElasticSearchResponse, IndexHit, MetaDataType};
-pub mod metadatatype;
+pub(crate) mod metadatatype;
+
+use self::metadatatype::{ElasticSearchResponse, IndexHit};
+pub use metadatatype::MetaDataType;
 
 impl MetaDataType {
     /// Get metadata over a single dataset with the id `dataset_id`

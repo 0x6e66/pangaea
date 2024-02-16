@@ -1,10 +1,10 @@
-pub mod datasettype;
-
 use elasticsearch::Elasticsearch;
 use serde_json::Value;
 
-use self::datasettype::Dataset;
-use crate::{metadata::metadatatype::MetaDataType, prelude::*};
+pub(crate) mod datasettype;
+
+pub use self::datasettype::Dataset;
+use crate::{metadata::MetaDataType, prelude::*};
 
 impl Dataset {
     /// Get metadata over a single dataset with the id `dataset_id`
