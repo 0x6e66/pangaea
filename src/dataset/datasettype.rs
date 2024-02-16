@@ -3,6 +3,7 @@ use chrono::{DateTime, Utc};
 use metadatatype::MetaDataType;
 use serde_derive::{Deserialize, Serialize};
 
+/// Striped down version of Metadata
 #[derive(Debug, Deserialize, Serialize, PartialEq, Clone)]
 pub struct Dataset {
     pub pangaea_id: Option<String>,

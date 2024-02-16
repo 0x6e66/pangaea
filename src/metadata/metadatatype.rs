@@ -1,5 +1,3 @@
-//! Generated with [xgen](https://github.com/xuri/xgen) from the [PANGAEA metadata scheme](https://ws.pangaea.de/schemas/pangaea/MetaData.xsd) and modified afterwards
-
 use serde_derive::{Deserialize, Serialize};
 use serde_json::Value;
 use yaserde_derive::{YaDeserialize, YaSerialize};
@@ -13,6 +11,7 @@ pub struct SizeType {
     pub text: String,
 }
 
+/// Generated with [xgen](https://github.com/xuri/xgen) from the [PANGAEA metadata scheme](https://ws.pangaea.de/schemas/pangaea/MetaData.xsd) and modified afterwards
 #[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct MetaDataType {

@@ -1,3 +1,5 @@
+//! Metadata type, that contains every information available to a pangaea-dataset
+
 use elasticsearch::{Elasticsearch, GetParts, SearchParts};
 use serde_json::{json, Value};
 

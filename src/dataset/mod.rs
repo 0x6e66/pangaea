@@ -1,3 +1,5 @@
+//! Striped down version of Metadata
+
 use elasticsearch::Elasticsearch;
 use serde_json::Value;
 
