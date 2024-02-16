@@ -4,7 +4,7 @@ use serde_derive::{Deserialize, Serialize};
 use serde_json::Value;
 use yaserde_derive::{YaDeserialize, YaSerialize};
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct SizeType {
     #[yaserde(attribute)]
@@ -13,7 +13,7 @@ pub struct SizeType {
     pub text: String,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct MetaDataType {
     #[yaserde(attribute)]
@@ -54,7 +54,7 @@ pub struct MetaDataType {
     pub technical_info: TechnicalInfoType,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct DataSetCitationType {
     #[yaserde(attribute, rename = "authorsAreEditors")]
@@ -71,7 +71,7 @@ pub struct DataSetCitationType {
     pub citation_type: CitationType,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct Source {
     #[yaserde(flatten)]
@@ -81,7 +81,7 @@ pub struct Source {
     pub text: String,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct CitationAttributes {
     #[yaserde(attribute, rename = "relationTypeId")]
@@ -100,7 +100,7 @@ pub struct CitationAttributes {
     pub comment: Option<String>,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct CitationType {
     #[yaserde(flatten)]
@@ -123,7 +123,7 @@ pub struct CitationType {
     pub uri: Option<String>,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct Geographic {
     #[yaserde(rename = "westBoundLongitude", prefix = "md")]
@@ -142,7 +142,7 @@ pub struct Geographic {
     pub location: Option<LinkedNameType>,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct Temporal {
     #[yaserde(rename = "minDateTime", prefix = "md")]
@@ -151,7 +151,7 @@ pub struct Temporal {
     pub max_date_time: String,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct Elevation {
     #[yaserde(rename = "name", prefix = "md", attribute)]
@@ -166,7 +166,7 @@ pub struct Elevation {
     pub max: f64,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct TopoType {
     #[yaserde(flatten)]
@@ -175,7 +175,7 @@ pub struct TopoType {
     pub text: String,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct ExtentType {
     #[yaserde(rename = "geographic", prefix = "md")]
@@ -188,7 +188,7 @@ pub struct ExtentType {
     pub topo_type: Option<TopoType>,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct EventType {
     #[yaserde(flatten)]
@@ -229,7 +229,7 @@ pub struct EventType {
     pub comment: Option<String>,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct LinkedLabelNameType {
     #[yaserde(flatten)]
@@ -242,7 +242,7 @@ pub struct LinkedLabelNameType {
     pub uri: Option<String>,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct ProjectType {
     #[yaserde(rename = "type", prefix = "md", attribute)]
@@ -253,7 +253,7 @@ pub struct ProjectType {
     pub linked_label_name_type: LinkedLabelNameType,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct AwardType {
     #[yaserde(flatten)]
@@ -268,7 +268,7 @@ pub struct AwardType {
     pub uri: Option<String>,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct ReferenceAttributes {
     #[yaserde(attribute, rename = "dataciteRelType")]
@@ -287,7 +287,7 @@ pub struct ReferenceAttributes {
     pub type_name: Option<String>,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct ReferenceType {
     #[yaserde(prefix = "md")]
@@ -300,7 +300,7 @@ pub struct ReferenceType {
     pub reference_attributes: ReferenceAttributes,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct IdAttributes {
     #[yaserde(attribute, rename = "id")]
@@ -311,7 +311,7 @@ pub struct IdAttributes {
     pub related_term_ids: Option<String>,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct ResponsiblePartyType {
     #[yaserde(flatten)]
@@ -330,7 +330,7 @@ pub struct ResponsiblePartyType {
     pub affiliations: Vec<InstitutionType>,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct CampaignType {
     #[yaserde(rename = "chiefScientist", prefix = "md")]
@@ -345,7 +345,7 @@ pub struct CampaignType {
     pub linked_name_type: LinkedNameType,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct BasisType {
     #[yaserde(rename = "callSign", prefix = "md")]
@@ -356,7 +356,7 @@ pub struct BasisType {
     pub linked_name_type: LinkedNameType,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct StatusType {
     #[yaserde(rename = "curationLevel", prefix = "md")]
@@ -365,7 +365,7 @@ pub struct StatusType {
     pub processing_level: Vec<LinkedLabelNameType>,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct KeywordsType {
     #[yaserde(rename = "techKeyword", prefix = "md")]
@@ -374,7 +374,7 @@ pub struct KeywordsType {
     pub keywords: Vec<KeywordType>,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct KeywordType {
     #[yaserde(flatten)]
@@ -385,7 +385,7 @@ pub struct KeywordType {
     pub text: String,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub enum KeywordTypeType {
     #[yaserde(rename = "fromDatabase", prefix = "md")]
@@ -395,7 +395,7 @@ pub enum KeywordTypeType {
     AutoGenerated,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct Entry {
     #[yaserde(rename = "key", attribute)]
@@ -404,14 +404,14 @@ pub struct Entry {
     pub value: String,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct TechnicalInfoType {
     #[yaserde(rename = "entry")]
     pub entries: Vec<Entry>,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct ColumnType {
     #[yaserde(flatten)]
@@ -440,7 +440,7 @@ pub struct ColumnType {
     pub caption: String,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub enum ColumnTypeType {
     #[yaserde(rename = "numeric", prefix = "md")]
@@ -460,7 +460,7 @@ pub enum ColumnTypeType {
     Unknown,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub enum ColumnSourceType {
     #[yaserde(rename = "event", prefix = "md")]
@@ -472,14 +472,14 @@ pub enum ColumnSourceType {
     Data,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct GroupType {
     #[yaserde(text)]
     pub text: String,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct ParameterType {
     #[yaserde(flatten)]
@@ -498,7 +498,7 @@ pub struct ParameterType {
     pub term: Vec<TermType>,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct HistoryType {
     #[yaserde(rename = "datetime", prefix = "md", attribute)]
@@ -507,7 +507,7 @@ pub struct HistoryType {
     pub text: String,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct LinkedNameType {
     #[yaserde(flatten)]
@@ -520,7 +520,7 @@ pub struct LinkedNameType {
     pub uri: Option<String>,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct TermType {
     #[yaserde(rename = "startOffset", prefix = "md", attribute)]
@@ -537,7 +537,7 @@ pub struct TermType {
     pub linked_name_type: LinkedNameType,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct MethodType {
     #[yaserde(rename = "term", prefix = "md")]
@@ -546,7 +546,7 @@ pub struct MethodType {
     pub linked_name_type: LinkedNameType,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct InstitutionType {
     #[yaserde(rename = "ROR", prefix = "md")]
@@ -557,7 +557,7 @@ pub struct InstitutionType {
     pub linked_name_type: LinkedNameType,
 }
 
-#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default)]
+#[derive(Debug, YaDeserialize, YaSerialize, Deserialize, Serialize, PartialEq, Default, Clone)]
 #[yaserde(prefix = "md", namespace = "md: http://www.pangaea.de/MetaData")]
 pub struct AttributeType {
     #[yaserde(rename = "attid", attribute)]
