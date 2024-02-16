@@ -1,8 +1,9 @@
 use crate::metadata::metadatatype;
 use chrono::{DateTime, Utc};
+use metadatatype::MetaDataType;
 use serde_derive::{Deserialize, Serialize};
 
-#[derive(Debug, Deserialize, Serialize, PartialEq)]
+#[derive(Debug, Deserialize, Serialize, PartialEq, Clone)]
 pub struct Dataset {
     pub pangaea_id: Option<String>,
     pub title: String,
@@ -14,60 +15,77 @@ pub struct Dataset {
     pub keywords: Vec<String>,
 }
 
+fn get_pangaea_id(md: &MetaDataType) -> Option<String> {
+    match &md.citation.citation_type.id_attributes.id {
+        None => None,
+        Some(id) => id.strip_prefix("dataset").map(|s| s.to_owned()),
+    }
+}
+
+fn get_title(md: &MetaDataType) -> String {
+    md.citation.citation_type.title.to_owned()
+}
+
+fn get_abstract(md: &MetaDataType) -> Option<String> {
+    md.text_abstract.to_owned()
+}
+
+fn get_authors(md: &MetaDataType) -> Vec<Author> {
+    md.citation
+        .citation_type
+        .authors
+        .clone()
+        .into_iter()
+        .map(|a| a.into())
+        .collect()
+}
+
+fn get_publication_date(md: &MetaDataType) -> Option<DateTime<Utc>> {
+    match &md
+        .citation
+        .date_time
+        .clone()
+        .map(|dt| DateTime::parse_from_rfc3339(&dt).ok().map(|dt| dt.to_utc()))
+    {
+        None => None,
+        Some(v) => v.to_owned(),
+    }
+}
+
+fn get_uri(md: &MetaDataType) -> Option<String> {
+    md.citation.citation_type.uri.to_owned()
+}
+
+fn get_extent(md: &MetaDataType) -> Option<Extent> {
+    md.extent.clone().map(|ext| ext.into())
+}
+
+fn get_keywords(md: &MetaDataType) -> Vec<String> {
+    md.keywords
+        .clone()
+        .map(|k| k.keywords)
+        .unwrap_or_default()
+        .into_iter()
+        .map(|kt| kt.text)
+        .collect()
+}
+
 impl From<metadatatype::MetaDataType> for Dataset {
     fn from(md: metadatatype::MetaDataType) -> Self {
-        let pangaea_id = md
-            .citation
-            .citation_type
-            .id_attributes
-            .id
-            .map(|id| id.to_owned());
-
-        let title = md.citation.citation_type.title;
-        let text_abstract = md.text_abstract;
-
-        let authors: Vec<Author> = md
-            .citation
-            .citation_type
-            .authors
-            .into_iter()
-            .map(|a| a.into())
-            .collect();
-
-        let publication_date: Option<DateTime<Utc>> = match md
-            .citation
-            .date_time
-            .map(|dt| DateTime::parse_from_rfc3339(&dt).ok().map(|dt| dt.to_utc()))
-        {
-            None => None,
-            Some(v) => v,
-        };
-
-        let uri = md.citation.citation_type.uri;
-        let extent = md.extent.map(|ext| ext.into());
-
-        let keywords = md
-            .keywords
-            .map(|k| k.keywords)
-            .unwrap_or_default()
-            .into_iter()
-            .map(|kt| kt.text)
-            .collect();
-
         Dataset {
-            pangaea_id,
-            title,
-            text_abstract,
-            authors,
-            publication_date,
-            uri,
-            extent,
-            keywords,
+            pangaea_id: get_pangaea_id(&md),
+            title: get_title(&md),
+            text_abstract: get_abstract(&md),
+            authors: get_authors(&md),
+            publication_date: get_publication_date(&md),
+            uri: get_uri(&md),
+            extent: get_extent(&md),
+            keywords: get_keywords(&md),
         }
     }
 }
 
-#[derive(Debug, Deserialize, Serialize, PartialEq)]
+#[derive(Debug, Deserialize, Serialize, PartialEq, Clone)]
 pub struct Author {
     pub last_name: String,
     pub first_name: Option<String>,
@@ -94,7 +112,7 @@ impl From<metadatatype::ResponsiblePartyType> for Author {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize, PartialEq)]
+#[derive(Debug, Deserialize, Serialize, PartialEq, Clone)]
 pub struct Institution {
     pub name: String,
     pub uri: Option<String>,
@@ -113,7 +131,7 @@ impl From<metadatatype::InstitutionType> for Institution {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize, PartialEq)]
+#[derive(Debug, Deserialize, Serialize, PartialEq, Clone)]
 pub struct Extent {
     pub geographic: Option<Geographic>,
     pub temporal: Option<Temporal>,
@@ -130,7 +148,7 @@ impl From<metadatatype::ExtentType> for Extent {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize, PartialEq)]
+#[derive(Debug, Deserialize, Serialize, PartialEq, Clone)]
 pub struct Geographic {
     pub west_bound_longitude: f64,
     pub east_bound_longitude: f64,
@@ -153,7 +171,7 @@ impl From<metadatatype::Geographic> for Geographic {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize, PartialEq)]
+#[derive(Debug, Deserialize, Serialize, PartialEq, Clone)]
 pub struct Temporal {
     pub min_date_time: Option<DateTime<Utc>>,
     pub max_date_time: Option<DateTime<Utc>>,
@@ -177,7 +195,7 @@ impl From<metadatatype::Temporal> for Temporal {
     }
 }
 
-#[derive(Debug, Deserialize, Serialize, PartialEq)]
+#[derive(Debug, Deserialize, Serialize, PartialEq, Clone)]
 pub struct Elevation {
     pub name: String,
     pub unit: Option<String>,
