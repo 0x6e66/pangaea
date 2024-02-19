@@ -59,10 +59,10 @@ pub async fn download_data_by_id(
         return write_response_to_file(response, filename).await;
     }
 
-    return Err(Error::Generic(format!(
+    Err(Error::Generic(format!(
         "Unable to locate data for dataset with id '{}'",
         dataset_id
-    )));
+    )))
 }
 
 async fn write_response_to_file(response: Response, path: impl Into<String>) -> Result<()> {
