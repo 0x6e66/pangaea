@@ -1,4 +1,4 @@
-use crate::metadata::metadatatype;
+use crate::{metadata::metadatatype, utils::string_to_datetime};
 use chrono::{DateTime, Utc};
 use metadatatype::MetaDataType;
 use serde_derive::{Deserialize, Serialize};
@@ -46,7 +46,7 @@ fn get_publication_date(md: &MetaDataType) -> Option<DateTime<Utc>> {
         .citation
         .date_time
         .clone()
-        .map(|dt| DateTime::parse_from_rfc3339(&dt).ok().map(|dt| dt.to_utc()))
+        .map(string_to_datetime)
     {
         None => None,
         Some(v) => v.to_owned(),
@@ -180,14 +180,8 @@ pub struct Temporal {
 
 impl From<metadatatype::Temporal> for Temporal {
     fn from(temp: metadatatype::Temporal) -> Self {
-        let min_date_time: Option<DateTime<Utc>> =
-            DateTime::parse_from_rfc3339(&temp.min_date_time)
-                .ok()
-                .map(|dt| dt.to_utc());
-        let max_date_time: Option<DateTime<Utc>> =
-            DateTime::parse_from_rfc3339(&temp.min_date_time)
-                .ok()
-                .map(|dt| dt.to_utc());
+        let min_date_time: Option<DateTime<Utc>> = string_to_datetime(temp.min_date_time);
+        let max_date_time: Option<DateTime<Utc>> = string_to_datetime(temp.max_date_time);
 
         Self {
             min_date_time,
