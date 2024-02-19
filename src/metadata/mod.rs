@@ -1,14 +1,12 @@
 //! Metadata type, that contains every information available to a pangaea-dataset
+pub(crate) mod metadatatype;
 
 use elasticsearch::{Elasticsearch, GetParts, SearchParts};
 use serde_json::{json, Value};
 
-use crate::prelude::*;
-
-pub(crate) mod metadatatype;
-
 use self::metadatatype::{ElasticSearchResponse, IndexHit};
-pub use metadatatype::MetaDataType;
+use crate::prelude::*;
+pub use metadatatype::*;
 
 impl MetaDataType {
     /// Get metadata over a single dataset with the id `dataset_id`

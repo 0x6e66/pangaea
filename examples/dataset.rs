@@ -1,4 +1,4 @@
-use pangaea::{dataset::Dataset, utils::get_elastic_client};
+use pangaea::{utils::get_elastic_client, Dataset};
 use std::{fs::File, io::Write};
 
 #[tokio::main]
