@@ -12,6 +12,6 @@ pub fn get_elastic_client() -> Result<Elasticsearch> {
 
 pub fn string_to_datetime(dt: String) -> Option<DateTime<Utc>> {
     DateTime::parse_from_rfc3339(format!("{}+01:00", dt).as_str())
-            .ok()
-            .map(|dt| dt.to_utc())
+        .ok()
+        .map(|dt| dt.to_utc())
 }
