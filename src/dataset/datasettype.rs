@@ -235,19 +235,15 @@ impl TryFrom<metadatatype::LinkedLabelNameType> for License {
     fn try_from(md_license: metadatatype::LinkedLabelNameType) -> Result<Self> {
         let label = md_license
             .label
-            .ok_or(Error::Generic(format!("License label is None")))?;
+            .ok_or(Error::Generic("License label is None".to_string()))?;
         let name = md_license
             .name
-            .ok_or(Error::Generic(format!("License name is None")))?;
+            .ok_or(Error::Generic("License name is None".to_string()))?;
         let uri = md_license
             .uri
-            .ok_or(Error::Generic(format!("License uri is None")))?;
+            .ok_or(Error::Generic("License uri is None".to_string()))?;
 
-        Ok(Self {
-            label: label,
-            name: name,
-            uri: uri,
-        })
+        Ok(Self { label, name, uri })
     }
 }
 
