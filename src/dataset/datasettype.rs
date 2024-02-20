@@ -1,4 +1,4 @@
-use crate::{metadata::metadatatype, utils::string_to_datetime};
+use crate::{metadata::metadatatype, prelude::*, utils::string_to_datetime};
 use chrono::{DateTime, Utc};
 use metadatatype::MetaDataType;
 use serde_derive::{Deserialize, Serialize};
@@ -14,6 +14,7 @@ pub struct Dataset {
     pub uri: Option<String>,
     pub extent: Option<Extent>,
     pub keywords: Vec<String>,
+    pub license: Option<License>,
 }
 
 fn get_pangaea_id(md: &MetaDataType) -> Option<String> {
@@ -42,12 +43,7 @@ fn get_authors(md: &MetaDataType) -> Vec<Author> {
 }
 
 fn get_publication_date(md: &MetaDataType) -> Option<DateTime<Utc>> {
-    match &md
-        .citation
-        .date_time
-        .clone()
-        .map(string_to_datetime)
-    {
+    match &md.citation.date_time.clone().map(string_to_datetime) {
         None => None,
         Some(v) => v.to_owned(),
     }
@@ -71,6 +67,13 @@ fn get_keywords(md: &MetaDataType) -> Vec<String> {
         .collect()
 }
 
+fn get_license(md: &MetaDataType) -> Option<License> {
+    match md.license.clone() {
+        None => None,
+        Some(license) => License::try_from(license).ok()
+    }
+}
+
 impl From<metadatatype::MetaDataType> for Dataset {
     fn from(md: metadatatype::MetaDataType) -> Self {
         Dataset {
@@ -82,6 +85,7 @@ impl From<metadatatype::MetaDataType> for Dataset {
             uri: get_uri(&md),
             extent: get_extent(&md),
             keywords: get_keywords(&md),
+            license: get_license(&md)
         }
     }
 }
@@ -206,5 +210,33 @@ impl From<metadatatype::Elevation> for Elevation {
             min: el.min,
             max: el.max,
         }
+    }
+}
+
+#[derive(Debug, Deserialize, Serialize, PartialEq, Clone)]
+pub struct License {
+    pub label: String,
+    pub name: String,
+    pub uri: String,
+}
+
+impl TryFrom<metadatatype::LinkedLabelNameType> for License {
+    type Error = Error;
+    fn try_from(md_license: metadatatype::LinkedLabelNameType) -> Result<Self> {
+        let label = md_license
+            .label
+            .ok_or(Error::Generic(format!("License label is None")))?;
+        let name = md_license
+            .name
+            .ok_or(Error::Generic(format!("License name is None")))?;
+        let uri = md_license
+            .uri
+            .ok_or(Error::Generic(format!("License uri is None")))?;
+
+        Ok(Self {
+            label: label,
+            name: name,
+            uri: uri,
+        })
     }
 }
