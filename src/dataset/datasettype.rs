@@ -15,6 +15,7 @@ pub struct Dataset {
     pub extent: Option<Extent>,
     pub keywords: Vec<String>,
     pub license: Option<License>,
+    pub projects: Vec<Project>,
 }
 
 fn get_pangaea_id(md: &MetaDataType) -> Option<String> {
@@ -70,8 +71,16 @@ fn get_keywords(md: &MetaDataType) -> Vec<String> {
 fn get_license(md: &MetaDataType) -> Option<License> {
     match md.license.clone() {
         None => None,
-        Some(license) => License::try_from(license).ok()
+        Some(license) => License::try_from(license).ok(),
     }
+}
+
+fn get_projects(md: &MetaDataType) -> Vec<Project> {
+    md.projects
+        .clone()
+        .into_iter()
+        .filter_map(|p| Project::try_from(p).ok())
+        .collect()
 }
 
 impl From<metadatatype::MetaDataType> for Dataset {
@@ -85,7 +94,8 @@ impl From<metadatatype::MetaDataType> for Dataset {
             uri: get_uri(&md),
             extent: get_extent(&md),
             keywords: get_keywords(&md),
-            license: get_license(&md)
+            license: get_license(&md),
+            projects: get_projects(&md),
         }
     }
 }
@@ -237,6 +247,47 @@ impl TryFrom<metadatatype::LinkedLabelNameType> for License {
             label: label,
             name: name,
             uri: uri,
+        })
+    }
+}
+
+#[derive(Debug, Deserialize, Serialize, PartialEq, Clone)]
+pub struct Project {
+    pub project_type: String,
+    pub institution: Institution,
+    pub label: String,
+    pub name: String,
+    pub uri: String,
+}
+
+impl TryFrom<metadatatype::ProjectType> for Project {
+    type Error = Error;
+    fn try_from(project: metadatatype::ProjectType) -> Result<Self> {
+        let project_type = project
+            .project_type
+            .ok_or(Error::Generic("Project project_type is None".to_string()))?;
+        let institution = project
+            .institution
+            .ok_or(Error::Generic("Project institution is None".to_string()))?;
+        let label = project
+            .linked_label_name_type
+            .label
+            .ok_or(Error::Generic("Project label is None".to_string()))?;
+        let name = project
+            .linked_label_name_type
+            .name
+            .ok_or(Error::Generic("Project name is None".to_string()))?;
+        let uri = project
+            .linked_label_name_type
+            .uri
+            .ok_or(Error::Generic("Project uri is None".to_string()))?;
+
+        Ok(Self {
+            project_type,
+            institution: institution.into(),
+            label,
+            name,
+            uri,
         })
     }
 }
